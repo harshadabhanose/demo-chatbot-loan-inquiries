@@ -1,0 +1,520 @@
+{
+  "metadata": {
+    "schemaVersion": "1.0",
+    "importType": "LEX",
+    "importFormat": "JSON"
+  },
+  "resource": {
+    "name": "LoanEnquiriesChatBot",
+    "version": "2",
+    "intents": [
+      {
+        "rejectionStatement": {
+          "messages": [
+            {
+              "contentType": "PlainText",
+              "content": "Okay...let's start again."
+            }
+          ]
+        },
+        "name": "EnquireAboutLoan",
+        "version": "27",
+        "fulfillmentActivity": {
+          "type": "ReturnIntent"
+        },
+        "sampleUtterances": [
+          "Hello",
+          "Hi",
+          "Good Morning",
+          "Good Afternoon",
+          "Good Evening",
+          "Greetings",
+          "Hey",
+          "Hi there",
+          "start"
+        ],
+        "slots": [
+          {
+            "name": "clientContactNo",
+            "slotConstraint": "Required",
+            "slotType": "AMAZON.PhoneNumber",
+            "valueElicitationPrompt": {
+              "messages": [
+                {
+                  "contentType": "PlainText",
+                  "content": "And your contact number please"
+                }
+              ],
+              "maxAttempts": 2
+            },
+            "priority": 3,
+            "sampleUtterances": []
+          },
+          {
+            "name": "clientEmail",
+            "slotConstraint": "Required",
+            "slotType": "AMAZON.EmailAddress",
+            "valueElicitationPrompt": {
+              "messages": [
+                {
+                  "contentType": "PlainText",
+                  "content": "Please share your email"
+                }
+              ],
+              "maxAttempts": 2
+            },
+            "priority": 2,
+            "sampleUtterances": []
+          },
+          {
+            "name": "clientName",
+            "slotConstraint": "Required",
+            "slotType": "AMAZON.Person",
+            "valueElicitationPrompt": {
+              "messages": [
+                {
+                  "contentType": "PlainText",
+                  "content": "Hello I am bizAmica demo chatbot. What is your name?"
+                }
+              ],
+              "maxAttempts": 2
+            },
+            "priority": 1,
+            "sampleUtterances": []
+          },
+          {
+            "name": "coboIncome",
+            "slotConstraint": "Optional",
+            "slotType": "Amount",
+            "slotTypeVersion": "1",
+            "valueElicitationPrompt": {
+              "messages": [
+                {
+                  "contentType": "PlainText",
+                  "content": "Can you share the monthly income of co-borrower? (INR)"
+                }
+              ],
+              "maxAttempts": 2
+            },
+            "priority": 12,
+            "sampleUtterances": []
+          },
+          {
+            "name": "collateral",
+            "slotConstraint": "Required",
+            "slotType": "YesNoType",
+            "slotTypeVersion": "1",
+            "valueElicitationPrompt": {
+              "messages": [
+                {
+                  "contentType": "PlainText",
+                  "content": "Are you willing to provide any collateral against the loan?"
+                }
+              ],
+              "maxAttempts": 2,
+              "responseCard": "{\"version\":1,\"contentType\":\"application/vnd.amazonaws.card.generic\",\"genericAttachments\":[{\"imageUrl\":\"http://www.fingyan.com/wp-content/uploads/2013/01/collateral-vs-security.png\",\"subTitle\":\"Are you willing to provide collateral?\",\"title\":\"Collateral\",\"buttons\":[{\"text\":\"Yes\",\"value\":\"Yes\"},{\"text\":\"No\",\"value\":\"No\"}]}]}"
+            },
+            "priority": 15,
+            "sampleUtterances": []
+          },
+          {
+            "name": "dob",
+            "slotConstraint": "Required",
+            "slotType": "AMAZON.DATE",
+            "valueElicitationPrompt": {
+              "messages": [
+                {
+                  "contentType": "PlainText",
+                  "content": "Can you also let me know your Date of Birth? (in dd mon yyyy format)"
+                }
+              ],
+              "maxAttempts": 2
+            },
+            "priority": 8,
+            "sampleUtterances": []
+          },
+          {
+            "name": "existingCustomer",
+            "slotConstraint": "Required",
+            "slotType": "YesNoType",
+            "slotTypeVersion": "1",
+            "valueElicitationPrompt": {
+              "messages": [
+                {
+                  "contentType": "PlainText",
+                  "content": "Lastly, are you an existing customer of the company?"
+                }
+              ],
+              "maxAttempts": 2,
+              "responseCard": "{\"version\":1,\"contentType\":\"application/vnd.amazonaws.card.generic\",\"genericAttachments\":[{\"imageUrl\":\"https://i0.wp.com/ils.cash/wp-content/uploads/ExistingClient.png?w=200&ssl=1\",\"subTitle\":\"Are you an existing customer of the company?\",\"title\":\"Existing Customer\",\"buttons\":[{\"text\":\"Yes\",\"value\":\"Yes\"},{\"text\":\"No\",\"value\":\"No\"}]}]}"
+            },
+            "priority": 16,
+            "sampleUtterances": []
+          },
+          {
+            "name": "income",
+            "slotConstraint": "Required",
+            "slotType": "Amount",
+            "slotTypeVersion": "1",
+            "valueElicitationPrompt": {
+              "messages": [
+                {
+                  "contentType": "PlainText",
+                  "content": "Please share your monthly income (INR)"
+                }
+              ],
+              "maxAttempts": 2
+            },
+            "priority": 9,
+            "sampleUtterances": []
+          },
+          {
+            "name": "loanAmount",
+            "slotConstraint": "Required",
+            "slotType": "Amount",
+            "slotTypeVersion": "1",
+            "valueElicitationPrompt": {
+              "messages": [
+                {
+                  "contentType": "PlainText",
+                  "content": "Great! I would like to know a few things first.What is the amount required (in INR) ?"
+                }
+              ],
+              "maxAttempts": 2
+            },
+            "priority": 5,
+            "sampleUtterances": []
+          },
+          {
+            "name": "loanCobo",
+            "slotConstraint": "Required",
+            "slotType": "CoBorrower",
+            "slotTypeVersion": "1",
+            "valueElicitationPrompt": {
+              "messages": [
+                {
+                  "contentType": "PlainText",
+                  "content": "Are you willing to have a co-borrower?"
+                }
+              ],
+              "maxAttempts": 2,
+              "responseCard": "{\"version\":1,\"contentType\":\"application/vnd.amazonaws.card.generic\",\"genericAttachments\":[{\"imageUrl\":\"https://d3k0pmp8tgrvhb.cloudfront.net/wp-content/uploads/20170724143040/Co-Borrower-Advantages.jpg\",\"subTitle\":\"Are you willing to have a co-borrower?\",\"title\":\"Co-Borrower\",\"buttons\":[{\"text\":\"Yes\",\"value\":\"Yes\"},{\"text\":\"No\",\"value\":\"No\"}]}]}"
+            },
+            "priority": 11,
+            "sampleUtterances": []
+          },
+          {
+            "name": "loanPurpose",
+            "slotConstraint": "Optional",
+            "slotType": "PurposeType",
+            "slotTypeVersion": "1",
+            "valueElicitationPrompt": {
+              "messages": [
+                {
+                  "contentType": "PlainText",
+                  "content": "Purpose of the Loan?"
+                }
+              ],
+              "maxAttempts": 2
+            },
+            "priority": 7,
+            "sampleUtterances": []
+          },
+          {
+            "name": "loanTenure",
+            "slotConstraint": "Required",
+            "slotType": "AMAZON.NUMBER",
+            "valueElicitationPrompt": {
+              "messages": [
+                {
+                  "contentType": "PlainText",
+                  "content": "What is the tenure for the loan? Enter between 1 and 7 years."
+                }
+              ],
+              "maxAttempts": 2
+            },
+            "priority": 6,
+            "sampleUtterances": []
+          },
+          {
+            "name": "loanType",
+            "slotConstraint": "Required",
+            "slotType": "LoanTypesNew",
+            "slotTypeVersion": "1",
+            "valueElicitationPrompt": {
+              "messages": [
+                {
+                  "contentType": "PlainText",
+                  "content": "Which product are you interested from the options below?"
+                },
+                {
+                  "contentType": "PlainText",
+                  "content": "Do you need a loan? Please select your requirement"
+                }
+              ],
+              "maxAttempts": 5,
+              "responseCard": "{\"version\":1,\"contentType\":\"application/vnd.amazonaws.card.generic\",\"genericAttachments\":[{\"imageUrl\":\"https://blog.ipleaders.in/wp-content/uploads/2016/10/why-do-lenders-insist-on-security-while-agreeing-to-provide-a-loan-1.jpg\",\"subTitle\":\"Please select type of loan\",\"title\":\"Loan Type\",\"buttons\":[{\"text\":\"Personal Loan\",\"value\":\"personal\"},{\"text\":\"Car Loan\",\"value\":\"car\"}]}]}"
+            },
+            "priority": 4,
+            "sampleUtterances": []
+          },
+          {
+            "name": "monthlyEMI",
+            "slotConstraint": "Optional",
+            "slotType": "Amount",
+            "slotTypeVersion": "1",
+            "valueElicitationPrompt": {
+              "messages": [
+                {
+                  "contentType": "PlainText",
+                  "content": "Okay. What is the amount for EMI?"
+                }
+              ],
+              "maxAttempts": 2
+            },
+            "priority": 14,
+            "sampleUtterances": []
+          },
+          {
+            "name": "otherLoan",
+            "slotConstraint": "Required",
+            "slotType": "YesNoType",
+            "slotTypeVersion": "1",
+            "valueElicitationPrompt": {
+              "messages": [
+                {
+                  "contentType": "PlainText",
+                  "content": "Great! A few more questions and we will be ready. Are you already paying any EMI?"
+                }
+              ],
+              "maxAttempts": 2,
+              "responseCard": "{\"version\":1,\"contentType\":\"application/vnd.amazonaws.card.generic\",\"genericAttachments\":[{\"imageUrl\":\"https://youmeandtrends.com/wp-content/uploads/2015/09/mzl.igevnmhk.png\",\"subTitle\":\"Do you have any other current loan?\",\"title\":\"Other Loan\",\"buttons\":[{\"text\":\"Yes\",\"value\":\"Yes\"},{\"text\":\"No\",\"value\":\"No\"}]}]}"
+            },
+            "priority": 13,
+            "sampleUtterances": []
+          },
+          {
+            "name": "profession",
+            "slotConstraint": "Required",
+            "slotType": "Profession",
+            "slotTypeVersion": "1",
+            "valueElicitationPrompt": {
+              "messages": [
+                {
+                  "contentType": "PlainText",
+                  "content": "What is your profession?"
+                }
+              ],
+              "maxAttempts": 2,
+              "responseCard": "{\"version\":1,\"contentType\":\"application/vnd.amazonaws.card.generic\",\"genericAttachments\":[{\"imageUrl\":\"http://www.australianmigrationnetwork.com.au/wp-content/uploads/2017/04/Australian-Skilled-Occupation-Lists.png\",\"subTitle\":\"Select your profession\",\"title\":\"Profession\",\"buttons\":[{\"text\":\"Salaried\",\"value\":\"salaried\"},{\"text\":\"Professional\",\"value\":\"professional\"},{\"text\":\"Own Business\",\"value\":\"own business\"}]}]}"
+            },
+            "priority": 10,
+            "sampleUtterances": []
+          }
+        ],
+        "confirmationPrompt": {
+          "messages": [
+            {
+              "contentType": "PlainText",
+              "content": "Are you sure you want to proceed with the requirement?"
+            }
+          ],
+          "maxAttempts": 3
+        },
+        "dialogCodeHook": {
+          "uri": "arn:aws:lambda:us-east-1:817866188589:function:LoanEnquiries",
+          "messageVersion": "1.0"
+        },
+        "conclusionStatement": {
+          "messages": [
+            {
+              "contentType": "PlainText",
+              "content": "Thanks for providing the details. We will get back to you in 2 working days"
+            }
+          ]
+        }
+      }
+    ],
+    "slotTypes": [
+      {
+        "description": "Profession Options",
+        "name": "Profession",
+        "version": "1",
+        "enumerationValues": [
+          {
+            "value": "salaried",
+            "synonyms": [
+              "Salaried",
+              "Employed",
+              "Service",
+              "Job"
+            ]
+          },
+          {
+            "value": "own business",
+            "synonyms": [
+              "Business",
+              "company",
+              "owner"
+            ]
+          },
+          {
+            "value": "professional",
+            "synonyms": [
+              "Professional",
+              "Self-employed"
+            ]
+          }
+        ],
+        "valueSelectionStrategy": "TOP_RESOLUTION"
+      },
+      {
+        "description": "loan purpose",
+        "name": "PurposeType",
+        "version": "1",
+        "enumerationValues": [
+          {
+            "value": "home renovation",
+            "synonyms": []
+          },
+          {
+            "value": "education",
+            "synonyms": []
+          },
+          {
+            "value": "business",
+            "synonyms": []
+          },
+          {
+            "value": "marriage",
+            "synonyms": []
+          },
+          {
+            "value": "function",
+            "synonyms": []
+          },
+          {
+            "value": "hospital bill",
+            "synonyms": []
+          }
+        ],
+        "valueSelectionStrategy": "ORIGINAL_VALUE"
+      },
+      {
+        "description": "Loan Amount",
+        "name": "Amount",
+        "version": "1",
+        "enumerationValues": [
+          {
+            "value": "1,00,000",
+            "synonyms": []
+          }
+        ],
+        "valueSelectionStrategy": "ORIGINAL_VALUE"
+      },
+      {
+        "description": "Options to have a co-borrower",
+        "name": "CoBorrower",
+        "version": "1",
+        "enumerationValues": [
+          {
+            "value": "No",
+            "synonyms": [
+              "n",
+              "nope",
+              "nah",
+              "ney"
+            ]
+          },
+          {
+            "value": "Yes",
+            "synonyms": [
+              "y",
+              "ya",
+              "yeah",
+              "yup"
+            ]
+          }
+        ],
+        "valueSelectionStrategy": "TOP_RESOLUTION"
+      },
+      {
+        "description": "Available Types of Loan",
+        "name": "LoanTypesNew",
+        "version": "1",
+        "enumerationValues": [
+          {
+            "value": "car",
+            "synonyms": [
+              "Car Loan",
+              "Vehicle",
+              "Vehicle Loan"
+            ]
+          },
+          {
+            "value": "personal",
+            "synonyms": [
+              "Personal Loan"
+            ]
+          },
+          {
+            "value": "home",
+            "synonyms": [
+              "Home Loan",
+              "Housing",
+              "Housing Loan"
+            ]
+          }
+        ],
+        "valueSelectionStrategy": "TOP_RESOLUTION"
+      },
+      {
+        "description": "Yes or No options",
+        "name": "YesNoType",
+        "version": "1",
+        "enumerationValues": [
+          {
+            "value": "No",
+            "synonyms": [
+              "N",
+              "Nope",
+              "Nah",
+              "ney"
+            ]
+          },
+          {
+            "value": "Yes",
+            "synonyms": [
+              "Y",
+              "Yup",
+              "Yeah",
+              "ya"
+            ]
+          }
+        ],
+        "valueSelectionStrategy": "TOP_RESOLUTION"
+      }
+    ],
+    "voiceId": "Kendra",
+    "childDirected": false,
+    "locale": "en-US",
+    "idleSessionTTLInSeconds": 600,
+    "clarificationPrompt": {
+      "messages": [
+        {
+          "contentType": "PlainText",
+          "content": "Sorry, can you please repeat that?"
+        }
+      ],
+      "maxAttempts": 5
+    },
+    "abortStatement": {
+      "messages": [
+        {
+          "contentType": "PlainText",
+          "content": "Sorry, I could not understand. Goodbye."
+        }
+      ]
+    }
+  }
+}
